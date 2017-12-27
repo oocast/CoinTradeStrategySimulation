@@ -10,11 +10,12 @@ using namespace web::json;
 class MarketDataClient {
 private:
   http_client client;
-  std::string pathQueryFragment;
+  utility::string_t pathQueryFragment;
 public:
-  MarketDataClient(std::string origin, 
+  MarketDataClient(std::string origin,
                   std::string methodPath, 
-                  std::unordered_map<std::string, std::string> &queryParams);
-  value getPriceData();
+                  std::unordered_map<std::string, std::string> const &queryParams);
+  ~MarketDataClient();
+  value GetPriceData();
 };
 
