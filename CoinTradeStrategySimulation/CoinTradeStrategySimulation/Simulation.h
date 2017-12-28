@@ -2,15 +2,19 @@
 #include <vector>
 #include "Account.h"
 #include "Strategy.h"
+#include "MarketDataClient.h"
+#include "Market.h"
 
 using namespace std;
 
 class Simulation {
+  Market * marketPtr;
   vector<Account> accounts;
   vector<Strategy*> strategies;
 public:
   Simulation();
-  void start();
-  void reset();
-  void printResult();
+  ~Simulation();
+  void Start();
+  void Reset();
+  void PrintResult();
 };

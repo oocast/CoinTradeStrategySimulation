@@ -54,3 +54,4 @@ CoinTradeStrategySimulation/CoinTradeStrategySimulation.VC.db
 CoinTradeStrategySimulation/CoinTradeStrategySimulation/Debug/CoinTradeStrategySimulation.log
 *.CopyComplete
 CoinTradeStrategySimulation/CoinTradeStrategySimulation/Debug/CoinTradeStrategySimulation.vcxprojResolveAssemblyReference.cache
+*.obj
