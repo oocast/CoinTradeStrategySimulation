@@ -58,9 +58,9 @@ std::string MovingAverageStrategy::GetDescription() const
 {
   std::ostringstream ss;
   ss << "\nRefer MA" << length << "\n";
-  ss << std::fixed << std::setprecision(2) << "unit operation cash amout " << unitCash << "\n";
-  ss << "only move in bull\n";
-  ss << std::fixed << std::setprecision(2) << "sell " << sellRate << " every time\n";
-  ss << std::fixed << std::setprecision(2) << "operate if off from MA within " << tradeThreshold;
+  ss << std::fixed << std::setprecision(2) << "Unit operation cash amout " << unitCash << "\n";
+  ss << "Only trade in bull market\n";
+  ss << std::fixed << std::setprecision(2) << "Sell " << sellRate * 100.0f << "% coins every time\n";
+  ss << std::fixed << std::setprecision(2) << "Operate if off from MA within " << tradeThreshold;
   return ss.str();
 }

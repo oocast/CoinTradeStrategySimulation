@@ -1,13 +1,14 @@
 #pragma once
 
-static const float initCash = 500000.0f;
+static const float defaultInitCash = 500000.0f;
 
 class Account {
 private:
   float numCoin;
   float cash;
+  float initCash;
 public:
-  Account(float numCoin = 0.0f, float cash = initCash);
+  Account(float numCoin = 0.0f, float cash = defaultInitCash);
   void PrintResult(const std::string & const strategyName, 
                   const std::string & const strategyDescription,
                   const float finalClosePrice) const;

@@ -23,6 +23,18 @@ Simulation::Simulation() :
 
   accounts.push_back(Account());
   strategies.push_back(new MovingAverageStrategy(5, 0.03f, 5000.0f));
+
+  accounts.push_back(Account());
+  strategies.push_back(new MovingAverageStrategy(5, 0.05f, 10000.0f));
+
+  accounts.push_back(Account(0.0f, 100000.0f));
+  strategies.push_back(new MovingAverageStrategy(5, 0.05f, 10000.0f));
+
+  accounts.push_back(Account());
+  strategies.push_back(new MovingAverageStrategy(10, 0.03f, 5000.0f));
+
+  accounts.push_back(Account());
+  strategies.push_back(new MovingAverageStrategy(10, 0.05f, 10000.0f));
 }
 
 Simulation::~Simulation()

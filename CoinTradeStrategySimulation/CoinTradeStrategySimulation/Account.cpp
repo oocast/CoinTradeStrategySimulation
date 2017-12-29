@@ -5,7 +5,8 @@
 
 Account::Account(float numCoin, float cash) :
   numCoin(numCoin),
-  cash(cash)
+  cash(cash),
+  initCash(cash)
 {
 }
 
