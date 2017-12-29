@@ -6,4 +6,5 @@ class DefaultStrategy : public Strategy {
 public:
   void Operate(Account* const account, const Market * market);
   std::string GetName() const;
+  std::string GetDescription() const;
 };

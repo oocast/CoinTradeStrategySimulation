@@ -8,17 +8,18 @@ using namespace web::json;
 
 class Market {
 private:
-  const value & const priceData;
+  const value priceData;
   int date;
   float highValue;
   float lowValue;
-  float currentCloseValue;
-  unordered_map<int, float> movingAverages;
-  deque<float> closePriceHistory;
+  void Initialize();
+  unsigned int DateToIndex() const;
 public:
-  Market(const value & const priceData);
+  Market(const value priceData);
   void NextDay();
   float ClosePriceToday() const;
+  float ClosePriceFinal() const;
+  float MovingAverage(int length) const;
   int GetDate() const;
   bool End() const;
 };

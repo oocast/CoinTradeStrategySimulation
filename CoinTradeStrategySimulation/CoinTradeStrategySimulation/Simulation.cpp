@@ -1,12 +1,12 @@
 #include <string>
 #include "Account.h"
-#include "Constants.h"
-#include "DefaultStrategy.h"
+#include "MovingAverageStrategy.h"
 #include "Simulation.h"
 
 #define PERIOD "1day"
 #define SYMBOL "btcusdt"
 
+extern unsigned int dayNum;
 
 Simulation::Simulation() :
   accounts(vector<Account>()),
@@ -14,21 +14,21 @@ Simulation::Simulation() :
 {
   std::unordered_map<std::string, std::string> queryParams;
   queryParams["period"] = PERIOD;
-  queryParams["size"] = std::to_string(DAY_NUM);
+  queryParams["size"] = std::to_string(dayNum);
   queryParams["symbol"] = SYMBOL;
   MarketDataClient client("https://api.huobi.pro", "/market/history/kline", queryParams);
   value v = client.GetPriceData();
-  std::cout << v.at(0).at(U("close")).as_double() << std::endl;
 
   marketPtr = new Market(v);
 
   accounts.push_back(Account());
-  strategies.push_back(new DefaultStrategy());
+  strategies.push_back(new MovingAverageStrategy(5, 0.01f, 5000.0f));
 }
 
 Simulation::~Simulation()
 {
   delete marketPtr;
+  marketPtr = nullptr;
   for (Strategy * strategy : strategies) {
     delete strategy;
     strategy = nullptr;
@@ -52,7 +52,7 @@ void Simulation::PrintResult()
   for (unsigned int i = 0; i < strategies.size(); i++) {
     Account & const account = accounts[i];
     Strategy * const strategyPtr = strategies[i];
-    account.PrintResult(strategyPtr->GetName());
+    account.PrintResult(strategyPtr->GetName(), strategyPtr->GetDescription(), marketPtr->ClosePriceFinal());
   }
 }
 

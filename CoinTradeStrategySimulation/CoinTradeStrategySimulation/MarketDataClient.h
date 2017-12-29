@@ -15,7 +15,6 @@ public:
   MarketDataClient(std::string origin,
                   std::string methodPath, 
                   std::unordered_map<std::string, std::string> const &queryParams);
-  ~MarketDataClient();
   value GetPriceData();
 };
 

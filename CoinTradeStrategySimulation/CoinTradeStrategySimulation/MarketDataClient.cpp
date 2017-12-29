@@ -21,12 +21,6 @@ MarketDataClient::MarketDataClient(std::string origin,
   pathQueryFragment = uriBuilder.to_string();
 }
 
-MarketDataClient::~MarketDataClient()
-{
-  //delete client;
-}
-
-
 value MarketDataClient::GetPriceData()
 {
   pplx::task<value> dataTask = client.request(methods::GET, pathQueryFragment).then([](http_response response) -> pplx::task<utility::string_t> {

@@ -6,4 +6,5 @@ class Strategy {
 public:
   virtual void Operate(Account * const account, const Market * market) = 0;
   virtual std::string GetName() const = 0;
+  virtual std::string GetDescription() const = 0;
 };
