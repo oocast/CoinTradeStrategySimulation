@@ -22,7 +22,7 @@ Simulation::Simulation() :
   marketPtr = new Market(v);
 
   accounts.push_back(Account());
-  strategies.push_back(new MovingAverageStrategy(5, 0.01f, 5000.0f));
+  strategies.push_back(new MovingAverageStrategy(5, 0.03f, 5000.0f));
 }
 
 Simulation::~Simulation()
@@ -49,6 +49,7 @@ void Simulation::Start()
 
 void Simulation::PrintResult()
 {
+  cout << "Warning: all fees ignored" << endl;
   for (unsigned int i = 0; i < strategies.size(); i++) {
     Account & const account = accounts[i];
     Strategy * const strategyPtr = strategies[i];

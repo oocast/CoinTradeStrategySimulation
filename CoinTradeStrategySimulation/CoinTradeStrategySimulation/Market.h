@@ -2,6 +2,7 @@
 #include <unordered_map>
 #include <queue>
 #include <cpprest/http_client.h>
+#include "Account.h"
 
 using namespace std;
 using namespace web::json;
@@ -12,6 +13,7 @@ private:
   int date;
   float highValue;
   float lowValue;
+  float closePrice;
   void Initialize();
   unsigned int DateToIndex() const;
 public:
@@ -22,4 +24,7 @@ public:
   float MovingAverage(int length) const;
   int GetDate() const;
   bool End() const;
+  void BuyWithCash(Account * const buyer, float cashToSpend) const;
+  void SellToCash(Account * const seller, float cashToGet) const;
+  void SellWithCoin(Account * const seller, float coinToSell) const;
 };
