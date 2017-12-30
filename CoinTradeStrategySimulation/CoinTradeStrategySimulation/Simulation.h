@@ -8,13 +8,14 @@
 using namespace std;
 
 class Simulation {
+private:
   Market * marketPtr;
   vector<Account> accounts;
   vector<Strategy*> strategies;
+  void CreateGlobalPeakStepStrategies();
 public:
   Simulation();
   ~Simulation();
   void Start();
-  void Reset();
   void PrintResult();
 };

@@ -20,6 +20,8 @@ public:
   Market(const value priceData);
   void NextDay();
   float ClosePriceToday() const;
+  float PeakPrice() const;
+  float ValleyPrice() const;
   float ClosePriceFinal() const;
   float MovingAverage(int length) const;
   int GetDate() const;

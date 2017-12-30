@@ -7,6 +7,8 @@ void Market::Initialize()
 {
   dayNum = priceData.size();
   closePrice = priceData.at(DateToIndex()).at(U("close")).as_double();
+  highValue = priceData.at(DateToIndex()).at(U("high")).as_double();
+  lowValue = priceData.at(DateToIndex()).at(U("low")).as_double();
 }
 
 unsigned int Market::DateToIndex() const
@@ -27,13 +29,28 @@ Market::Market(const value priceData) :
 void Market::NextDay()
 {
   date++;
-  if (date < dayNum)
+  if (date < dayNum) {
     closePrice = priceData.at(DateToIndex()).at(U("close")).as_double();
+    if (highValue < closePrice)
+      highValue = closePrice;
+    if (lowValue > closePrice)
+      lowValue = closePrice;
+  }
 }
 
 float Market::ClosePriceToday() const
 {
   return closePrice;
+}
+
+float Market::PeakPrice() const
+{
+  return highValue;
+}
+
+float Market::ValleyPrice() const
+{
+  return lowValue;
 }
 
 float Market::ClosePriceFinal() const
@@ -61,6 +78,8 @@ bool Market::End() const
 {
   return date >= dayNum;
 }
+
+// TODO: add trade fees
 
 void Market::BuyWithCash(Account * const buyer, float cashToSpend) const
 {
