@@ -44,7 +44,7 @@ Simulation::Simulation() :
   MarketDataClient client("https://api.huobi.pro", "/market/history/kline", queryParams);
   value v = client.GetPriceData();
 
-  marketPtr = new Market(v);
+  marketPtr = new Market(v, 0.002f);
 
   accounts.push_back(Account());
   strategies.push_back(new MovingAverageStrategy(5, 0.03f, 5000.0f));

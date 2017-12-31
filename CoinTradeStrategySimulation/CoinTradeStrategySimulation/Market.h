@@ -10,6 +10,7 @@ using namespace web::json;
 class Market {
 private:
   const value priceData;
+  const float feeRate;
   int date;
   float highValue;
   float lowValue;
@@ -17,7 +18,7 @@ private:
   void Initialize();
   unsigned int DateToIndex() const;
 public:
-  Market(const value priceData);
+  Market(const value priceData, const float feeRate);
   void NextDay();
   float ClosePriceToday() const;
   float PeakPrice() const;

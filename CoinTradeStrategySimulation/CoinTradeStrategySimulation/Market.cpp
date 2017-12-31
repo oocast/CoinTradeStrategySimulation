@@ -17,8 +17,9 @@ unsigned int Market::DateToIndex() const
   return dayNum - 1 - date;
 }
 
-Market::Market(const value priceData) :
+Market::Market(const value priceData, const float feeRate) :
   date(0),
+  feeRate(feeRate),
   highValue(-1),
   lowValue(INFINITY),
   priceData(priceData)
@@ -85,9 +86,10 @@ bool Market::End() const
 void Market::BuyWithCash(Account * const buyer, float cashToSpend) const
 {
   float buyerBudget = buyer->GetCash();
-  if (buyerBudget >= cashToSpend) {
+  float adjustedCashToSpend = cashToSpend * (1.0f + feeRate);
+  if (buyerBudget >= adjustedCashToSpend) {
     float coin = cashToSpend / closePrice;
-    buyer->AddCash(-cashToSpend);
+    buyer->AddCash(-adjustedCashToSpend);
     buyer->AddCoin(coin);
   }
 }
@@ -98,7 +100,7 @@ void Market::SellToCash(Account * const seller, float cashToGet) const
   float sellerCoinValue = sellerCoin * closePrice;
   if (sellerCoinValue > cashToGet) {
     float coin = cashToGet / closePrice;
-    seller->AddCash(cashToGet);
+    seller->AddCash(cashToGet * (1.0f - feeRate));
     seller->AddCoin(-coin);
   }
 }
@@ -108,7 +110,7 @@ void Market::SellWithCoin(Account * const seller, float coinToSell) const
   float sellerCoin = seller->GetCoin();
   if (sellerCoin > coinToSell) {
     float cash = coinToSell * closePrice;
-    seller->AddCash(cash);
+    seller->AddCash(cash * (1.0f - feeRate));
     seller->AddCoin(-coinToSell);
   }
 }
