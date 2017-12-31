@@ -2,13 +2,14 @@
 #include "Market.h"
 
 extern unsigned int dayNum;
+const float usdtToRmb = 6.5f;
 
 void Market::Initialize()
 {
   dayNum = priceData.size();
-  closePrice = priceData.at(DateToIndex()).at(U("close")).as_double();
-  highValue = priceData.at(DateToIndex()).at(U("high")).as_double();
-  lowValue = priceData.at(DateToIndex()).at(U("low")).as_double();
+  closePrice = priceData.at(DateToIndex()).at(U("close")).as_double() * usdtToRmb;
+  highValue = priceData.at(DateToIndex()).at(U("high")).as_double() * usdtToRmb;
+  lowValue = priceData.at(DateToIndex()).at(U("low")).as_double() * usdtToRmb;
 }
 
 unsigned int Market::DateToIndex() const
@@ -30,7 +31,7 @@ void Market::NextDay()
 {
   date++;
   if (date < dayNum) {
-    closePrice = priceData.at(DateToIndex()).at(U("close")).as_double();
+    closePrice = priceData.at(DateToIndex()).at(U("close")).as_double() * usdtToRmb;
     if (highValue < closePrice)
       highValue = closePrice;
     if (lowValue > closePrice)
@@ -55,7 +56,7 @@ float Market::ValleyPrice() const
 
 float Market::ClosePriceFinal() const
 {
-  return priceData.at(0).at(U("close")).as_double();
+  return priceData.at(0).at(U("close")).as_double() * usdtToRmb;
 }
 
 float Market::MovingAverage(int length) const
@@ -64,7 +65,7 @@ float Market::MovingAverage(int length) const
   float sum = closePrice;
   unsigned int baseIndex = DateToIndex();
   for (unsigned int i = 1; i < length; i++) {
-    sum += priceData.at(baseIndex + i).at(U("close")).as_double();
+    sum += priceData.at(baseIndex + i).at(U("close")).as_double() * usdtToRmb;
   }
   return sum / (float) length;
 }
